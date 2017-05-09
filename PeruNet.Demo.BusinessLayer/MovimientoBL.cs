@@ -1,5 +1,7 @@
 ﻿using PeruNet.Demo.BusinessEntity;
+using PeruNet.Demo.BusinessLayer.Contracts;
 using PeruNet.Demo.DataLayer;
+using PeruNet.Demo.DataLayer.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace PeruNet.Demo.BusinessLayer
 {
-    public class MovimientoBL
+    public class MovimientoBL: IMovimientoBL
     {
-        MovimientoDL movimientoDL;
-        ProductoDL productoDL;
-        public MovimientoBL() {
-            this.movimientoDL = new MovimientoDL();
-            this.productoDL = new ProductoDL();
+        IMovimientoDL movimientoDL;
+        IProductoDL productoDL;
+        public MovimientoBL(IMovimientoDL movimientoDL, IProductoDL productoDL) {
+            this.movimientoDL = movimientoDL;
+            this.productoDL = productoDL;
         }
-        public void RegistrarIngreso(MovimientoBE movimiento) {
-            this.movimientoDL.RegistrarIngreso(movimiento);
+        public void RegistrarIngreso(MovimientoBE ingreso) {
+            this.movimientoDL.RegistrarIngreso(ingreso);
 
-            foreach (var detalle in movimiento.Detalle)
+            foreach (var detalle in ingreso.Detalle)
             {
                 var producto = productoDL.ObtenerProducto(detalle.Producto.Id);
 

@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IMovimientoDL.cs" />
+    <Compile Include="Contracts\IProductoDL.cs" />
+    <Compile Include="DataAccess\IDataAccess.cs" />
+    <Compile Include="DataAccess\SQLServerDataAccess.cs" />
     <Compile Include="MovimientoDL.cs" />
     <Compile Include="ProductoDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,5 +54,6 @@
       <Name>PeruNet.Demo.BusinessEntity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

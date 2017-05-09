@@ -1,5 +1,9 @@
 ﻿using PeruNet.Demo.BusinessEntity;
 using PeruNet.Demo.BusinessLayer;
+using PeruNet.Demo.BusinessLayer.Contracts;
+using PeruNet.Demo.DataLayer;
+using PeruNet.Demo.DataLayer.Contracts;
+using PeruNet.Demo.DataLayer.DataAccess;
 using PeruNet.Demo.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,11 +16,11 @@ namespace PeruNet.Demo.WinApp
 {
     class Program
     {
-        private static MovimientoBL movimientoBL;
+        private static IMovimientoBL movimientoBL;
+        private static ILogManager logManager;
         static void Main(string[] args)
         {
-
-            movimientoBL = new MovimientoBL();
+            StarUp();
 
             Console.WriteLine("Registrando un ingreso a almacén..Press any Key.");
             Console.ReadKey();
@@ -29,6 +33,16 @@ namespace PeruNet.Demo.WinApp
             RegistrarSalida();
 
             Console.ReadKey();
+        }
+
+        static void StarUp() {
+            //Reemplazar con framework IoC
+            IDataAccess dataAccess = new SQLServerDataAccess();
+            IMovimientoDL movimientoDL = new MovimientoDL(dataAccess);
+            IProductoDL productoDL = new ProductoDL(dataAccess);
+
+            movimientoBL = new MovimientoBL(movimientoDL, productoDL);
+            logManager = new LogManager();
         }
 
         static void RegistrarIngreso() {
@@ -47,7 +61,7 @@ namespace PeruNet.Demo.WinApp
             }
             catch (Exception ex)
             {
-                LogManager.RegistrarLog(ex);
+                logManager.Error(ex);
             }
            
             
@@ -70,7 +84,7 @@ namespace PeruNet.Demo.WinApp
             }
             catch (Exception ex)
             {
-                LogManager.RegistrarLog(ex);
+                logManager.Error(ex);
             }
 
         }

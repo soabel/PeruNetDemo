@@ -1,16 +1,21 @@
 ﻿namespace PeruNet.Demo.DataLayer
 {
     using PeruNet.Demo.BusinessEntity;
+    using PeruNet.Demo.DataLayer.Contracts;
+    using PeruNet.Demo.DataLayer.DataAccess;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    public class ProductoDL
+    public class ProductoDL: IProductoDL
     {
+        private IDataAccess dataAccess;
         private static List<ProductoBE>  listaBaseProductos = new List<ProductoBE>();
 
-        public ProductoDL() {
+        public ProductoDL(IDataAccess dataAccess) {
+
+            this.dataAccess = dataAccess;
             //Inicializar lsita de productos
             listaBaseProductos.Add(new ProductoBE() { Id = 1, Descripcion = "Lapicero Faber Castell 035 Azul", Precio = 1.5M, StockActual = 50 });
             listaBaseProductos.Add(new ProductoBE() { Id = 2, Descripcion = "Cartucheran para utiles", Precio = 10M, StockActual = 10 });
@@ -21,15 +26,18 @@
         public void IncrementarStock(ProductoBE producto, int cantidad) {
             producto.StockActual += cantidad;
             Console.WriteLine("Se incrementó el stock en {0}. Nuevo Stock: {1}", cantidad, producto.StockActual);
+
+            this.dataAccess.ExecuteNonQuery("Producto.ActualizarStock", new { });
         }
-        public void DisminuirStock(ProductoBE producto, int cantidad)
-        {
+        public void DisminuirStock(ProductoBE producto, int cantidad){
             producto.StockActual -= cantidad;
             Console.WriteLine("Se disminuyó el stock en {0}. Nuevo Stock: {1}", cantidad, producto.StockActual);
+
+            this.dataAccess.ExecuteNonQuery("Producto.ActualizarStock", new { });
         }
 
         public ProductoBE ObtenerProducto(int idProducto) {
-
+            
             var producto = listaBaseProductos.Where(x => x.Id == idProducto).FirstOrDefault();
             return producto;
 

@@ -56,6 +56,10 @@
       <Project>{c8b03460-0861-400d-9e24-e30ee204f5e4}</Project>
       <Name>PeruNet.Demo.BusinessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PeruNet.Demo.DataLayer\PeruNet.Demo.DataLayer.csproj">
+      <Project>{f5e2cabd-88c5-4a90-a2bf-5f6de9a155b2}</Project>
+      <Name>PeruNet.Demo.DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PeruNet.Demo.Logging\PeruNet.Demo.Logging.csproj">
       <Project>{82782b55-8294-4951-8393-cfd9ea7f59c3}</Project>
       <Name>PeruNet.Demo.Logging</Name>

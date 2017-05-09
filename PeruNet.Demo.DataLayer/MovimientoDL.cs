@@ -1,4 +1,6 @@
 ﻿using PeruNet.Demo.BusinessEntity;
+using PeruNet.Demo.DataLayer.Contracts;
+using PeruNet.Demo.DataLayer.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +9,23 @@ using System.Threading.Tasks;
 
 namespace PeruNet.Demo.DataLayer
 {
-    public class MovimientoDL
+    public class MovimientoDL: IMovimientoDL
     {
-        public void RegistrarIngreso(MovimientoBE movimiento)
-        {   
-            Console.WriteLine("Se registro un ingreso");
+        IDataAccess dataAccess;
+        public MovimientoDL(IDataAccess dataAccess) {
+            this.dataAccess = dataAccess;
         }
 
-        public void RegistrarSalida(MovimientoBE movimiento)
+        public void RegistrarIngreso(MovimientoBE ingreso)
+        {   
+            Console.WriteLine("Se registro un ingreso");
+            this.dataAccess.ExecuteNonQuery("Almacen.RegistrarMovimiento", new { });
+        }
+
+        public void RegistrarSalida(MovimientoBE salida)
         {
             Console.WriteLine("Se registro una salida");
+            this.dataAccess.ExecuteNonQuery("Almacen.RegistrarMovimiento", new { });
         }
 
         

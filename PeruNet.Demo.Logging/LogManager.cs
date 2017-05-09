@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace PeruNet.Demo.Logging
 {
-    public class LogManager
+    public class LogManager: ILogManager
     {
-        public static void RegistrarLog(Exception ex) {
-            Debug.Write("Se ha producido un error. ERROR: {0}", ex.Message + " - " + ex.StackTrace);
+        public void Error(Exception exception)
+        {
+            Debug.Write("Se ha producido un error. ERROR: {0}", exception.Message + " - " + exception.StackTrace);
         }
+
+        public void Log(string mensaje)
+        {
+            Debug.Write(mensaje);
+        }
+        
     }
 }
