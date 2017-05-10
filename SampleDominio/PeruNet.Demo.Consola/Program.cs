@@ -27,7 +27,7 @@ namespace PeruNet.Demo.Consola
 
       Console.WriteLine("Iniciando Registro Ingreso");
       var uowFactory = new UnitOfWorkFactory(sessionFactory);
-      var service = new ControlDeInventarioService(uowFactory);
+      var service = new InventarioService(uowFactory);
       service.RegistrarIngreso(1, new IngresoDto
       {
         Ruc = "12345678901",
