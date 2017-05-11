@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PeruNet.Demo.Aplicacion
 {
-  public class InventarioService
+  public class InventarioService: IInventarioService
   {
     private IUnitOfWorkFactory _uowFactory;
 
